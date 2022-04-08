@@ -1,0 +1,142 @@
+.top-nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+i{
+    margin: 0px 15px;
+    font-size: 24px;
+}
+.btn--buy{
+    background-color: greenyellow;
+}
+.btn--sell{
+    background-color: red;
+}
+button + button{
+    margin: 4px;
+}
+.btn--buy, .btn--sell{
+    border-radius: 4px;
+    border: hidden;
+    box-shadow: 1px 2px #aaa;
+}
+.btn--buy:hover, .btn--sell:hover{
+    opacity: 0.5;
+}
+input{
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    background-color: #eee;
+}
+.top-nav__chart-tools{
+    display: flex;
+}
+.top-nav__sell-buy{
+    display: flex;
+}
+.top-nav__icon-indicator{
+    margin: 0px 0px 0px 15px;
+}
+.top-nav__icon-indicator-arrow{
+    font-size: 10px;
+    margin-left:0px;
+    margin-right: 15px;
+}
+.top-nav__icons-indicator{
+    display: flex;
+    flex-direction: row;
+    
+}
+/* hover */
+.top-nav__user--hover{
+    font-size: 12px;
+    border-radius: 5px;
+    position: absolute;
+    width: fit-content;
+    background-color: #000;
+    color: #fff;
+    opacity: 0.7;
+    height: fit-content;
+    display: none;
+}
+
+
+
+
+
+.top-nav__user:hover:hover .top-nav__icon-user{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+    animation-fill-mode: forwards;  
+} 
+.top-nav__user:hover .top-nav__user--hover{
+    display: block;
+}
+@keyframes icon_hover {
+    from{
+        
+    }
+    to{
+        font-size: 20px;
+    }
+}
+
+
+/* onClick */
+    /* Indicator */
+    .indicator__dropdown{
+        box-shadow: 0px 2px 5px #888, 0px 3px 5px #888;
+        border-radius: 3px;
+        display: block;
+        position: absolute;
+        top: 50px;
+        width: fit-content;
+        height: fit-content;
+    }
+    .indicator__dropdown-list{
+        margin-top: 40px;
+    }
+    ul{
+        list-style-type: none;
+    }
+      
+    .num_of_indicators{
+        margin-top: 6px;
+        margin-bottom: 6px;
+        text-align: center;
+        background-color: aqua;
+        margin-left: -20px;
+        border-radius: 3px;
+        width: 30px;
+        margin-right: 5px;
+    }
+
+    .indicator__dropdown-favourite,.indicator__dropdown-patterns, .indicator__dropdown-momemtum, .indicator__dropdown-orderflow,
+    .indicator__dropdown-oscillators, .indicator__dropdown-overlay{
+        display: flex;
+        align-items: center;
+        align-content: center;
+        flex-direction: row;
+    }
+    .container-arrow {
+        padding: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-left: 3px;
+        font-size: 10px;
+    }
+    
+    .container-arrow .top-nav__icon-indicator-arrow {
+        display: block;
+        font-size: 10px;
+        transition: all 0.4s ease;
+    }
