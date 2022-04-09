@@ -2,9 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 import './css/App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import {requestData, initChart} from './js/chart.js'
+import {requestData, initChart} from './js/stockService.js'
 import Navbar from './components/Navbar/Navbar.js'
 class App extends React.Component{
     constructor(props) {

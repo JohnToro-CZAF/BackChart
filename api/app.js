@@ -7,7 +7,7 @@ var request = require('request-promise');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-var alphaVantageApiKey = "95VD"; //fio:
+var alphaVantageApiKey = "FXWNNVR4DDETBMUNFXWNNVR4DDETBMUN"; //fio:
 var app = express();
 
 // view engine setup

@@ -2,13 +2,12 @@ import {computeSmaSeries, dataFrameToHighstockOHLC, seriesToHighstock} from './u
 const dataForge = require('data-forge');
 var curDataFrame = null;
 var smaPeriod = 30;
-
-
-export function requestData(code){
+var timeRun = 0;
+function requestData(code){
+    console.log(`You are requesting a company ${code} stock history via requestData function service ${timeRun++}`);  
     const response = fetch("stock-history?symbol=" + code)
       .then(response => response.text())
       .then(response => {
-        console.log(code, response);
         curDataFrame = dataForge.fromCSV(response)
         .where(row => row.timestamp)
         .parseDates("timestamp")
@@ -21,12 +20,11 @@ export function requestData(code){
       })
     return response;
 }
-export function initChart (dataFrame, window) {
+function initChart (dataFrame, window) {
 
     var price = dataFrameToHighstockOHLC(dataFrame);
     var volume = seriesToHighstock(dataFrame.getSeries("volume"));
     var sma = computeSmaSeries(dataFrame.getSeries("close"), smaPeriod);
-    console.log(sma);
     var chartOptions =
     {
         chart: {
@@ -96,4 +94,15 @@ export function initChart (dataFrame, window) {
         ]
     };
     return chartOptions;
+}
+
+export function getStockData(company, window){
+    console.log('Loading ' + company);
+    const options = requestData(company)
+    .then(dataFrame => initChart(dataFrame, window))
+    .catch(function (err) {
+        console.error(err.stack || err);  
+    });
+    console.log("options", options);
+    return options;
 }

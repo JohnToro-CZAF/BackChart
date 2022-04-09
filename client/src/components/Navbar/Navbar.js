@@ -26,7 +26,7 @@ const num_of_orderflow_indicator = 11;
 const num_of_oscillators_indicator = 12;
 const num_of_overlay_indicator = 1;
 
-function Navbar(){
+function Navbar(props){
     const [usingTool,setUsingTool] = useState(null);
     return(
         <div className="top-nav">
@@ -39,7 +39,12 @@ function Navbar(){
               </div>
               <div className="top-nav__search">
                 <i className="bi bi-search top-nav__icon-search"></i>
-                <input type="text"></input>
+                <input
+                type="text"
+                value={props.company}
+                onChange={props.handleChange}
+                onKeyDown={props.handleSearch}
+            />
               </div>
               {/* <div className="top-nav__chart">
                 <h1>1D</h1>
