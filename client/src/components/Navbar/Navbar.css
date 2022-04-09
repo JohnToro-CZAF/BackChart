@@ -38,14 +38,8 @@ input{
 .top-nav__sell-buy{
     display: flex;
 }
-.top-nav__icon-indicator{
-    margin: 0px 0px 0px 15px;
-}
-.top-nav__icon-indicator-arrow{
-    font-size: 10px;
-    margin-left:0px;
-    margin-right: 15px;
-}
+
+
 .top-nav__icons-indicator{
     display: flex;
     flex-direction: row;
@@ -62,32 +56,112 @@ input{
     opacity: 0.7;
     height: fit-content;
     display: none;
+    z-index: 10;
 }
-
-
-
-
-
 .top-nav__user:hover:hover .top-nav__icon-user{
     cursor: pointer;
     animation: icon_hover 0.1s ease-in-out;
-    animation-fill-mode: forwards;  
+
 } 
 .top-nav__user:hover .top-nav__user--hover{
     display: block;
 }
-@keyframes icon_hover {
-    from{
-        
-    }
-    to{
-        font-size: 20px;
-    }
+
+.top-nav__search:hover .top-nav__icon-search{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+
 }
+.top-nav__chart:hover .top-nav__icon-chart{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
 
+}
+.top-nav__drawing:hover .top-nav__icon-drawing{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
 
+}
+.top-nav__indicator:hover .top-nav__icons-indicator{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+ 
+}
+.top-nav__sharing:hover .top-nav__icon-sharing{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__magnet:hover .top-nav__icon-magnet{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__replay:hover .top-nav__icon-replay{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__settings:hover .top-nav__icon-settings{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__layers:hover .top-nav__icon-user-layers{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__widgets:hover .top-nav__icon-widgets{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
+.top-nav__panel:hover .top-nav__icon-panel{
+    cursor: pointer;
+    animation: icon_hover 0.1s ease-in-out;
+}
 /* onClick */
+    /*Chart*/ 
+    .top-nav__icons-chart{
+        display: flex;
+        flex-direction: row;
+    }
+    .top-nav__icon-chart{
+        margin: 0px 0px 0px 15px;
+    }
+    .container-arrow {
+        padding: 0px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+        align-items: center;
+        margin-left: 3px;
+        font-size: 10px;
+    }
+    
+    .container-arrow .top-nav__icon-chart-arrow {
+        display: block;
+        font-size: 10px;
+        transition: all 0.4s ease;
+    }
+    .top-nav__icon-chart-arrow{
+        font-size: 10px;
+        margin-left:0px;
+        margin-right: 15px;
+    }
     /* Indicator */
+    .top-nav__icon-indicator{
+        margin: 0px 0px 0px 15px;
+    }
+    .top-nav__icon-indicator-arrow{
+        font-size: 10px;
+        margin-left:0px;
+        margin-right: 15px;
+    }
+    .indicator__dropdown-icon-search{
+        font-size: 15px;
+    }
+    .indicator__dropdown-search{
+        margin: 10px 10px 0px 0px;   
+    }
     .indicator__dropdown{
         box-shadow: 0px 2px 5px #888, 0px 3px 5px #888;
         border-radius: 3px;
@@ -96,20 +170,24 @@ input{
         top: 50px;
         width: fit-content;
         height: fit-content;
+        background-color: #fff;
+        z-index: 10;
     }
-    .indicator__dropdown-list{
+    .indicator__dropdown-list,.indicator__dropdown-favourite-list{
         margin-top: 40px;
+        margin-left: 2px;
+        padding-left: 5px;
     }
     ul{
         list-style-type: none;
     }
-      
+    
     .num_of_indicators{
         margin-top: 6px;
         margin-bottom: 6px;
         text-align: center;
         background-color: aqua;
-        margin-left: -20px;
+        margin-left: 0px;
         border-radius: 3px;
         width: 30px;
         margin-right: 5px;
@@ -140,3 +218,26 @@ input{
         font-size: 10px;
         transition: all 0.4s ease;
     }
+        /*Hover*/
+        .indicator-dropdown-favourite-hover{
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+            right: -250px;
+            width: 250px;
+            background-color: #fff;
+            box-shadow: 2px 3px #aaa;
+        }
+        .indicator__dropdown-favourite:hover{
+            animation: indicator__dropdown-hover 0.1s ease-in-out forwards;
+        }
+        @keyframes indicator__dropdown-hover {
+            from{
+                background-color: #fff;
+            }
+            to{
+                background-color: #aaa;
+            }
+        }

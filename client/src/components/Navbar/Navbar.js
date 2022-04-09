@@ -17,17 +17,25 @@ const Tools = {
   PANEL: 12
 };
 Object.freeze(Tools);
-
-
+const IndicatorDropDown = {
+  FAVOURITE: 1,
+  PATTERNS: 2,
+  MOMENTUM: 3,
+  ORDERFLOW: 4,
+  OSCILLATOR: 5,
+  OVERLAY: 6,
+};
+Object.freeze(IndicatorDropDown);
 const num_of_favourite_indicator = 0;
 const num_of_patterns_indicator = 33;
 const num_of_momemtum_indicator = 21;
 const num_of_orderflow_indicator = 11;
 const num_of_oscillators_indicator = 12;
 const num_of_overlay_indicator = 1;
-
+const favouriteIndicators = ["TBC","HDF","AGH","ODG"]
 function Navbar(props){
     const [usingTool,setUsingTool] = useState(null);
+    const [indicatorDropDown,setIndicatorDropDown] = useState(null);
     return(
         <div className="top-nav">
             <div className="top-nav__chart-tools">
@@ -38,26 +46,32 @@ function Navbar(props){
                 </div>
               </div>
               <div className="top-nav__search">
-                <i className="bi bi-search top-nav__icon-search"></i>
+                <i className="bi bi-search top-nav__icon-search" onClick={() => {props.setRenderingCompany();}}></i>
                 <input
                 type="text"
                 value={props.company}
-                onChange={props.handleChange}
-                onKeyDown={props.handleSearch}
+                onChange={props.handleChangeNameCompany}
+                onKeyDown={(e) => {if(e.key==="Enter"){ props.setRenderingCompany(); }}}
             />
               </div>
               {/* <div className="top-nav__chart">
                 <h1>1D</h1>
               </div> */}
               <div className="top-nav__chart">
-                <i className="bi bi-bar-chart-line top-nav__icon-chart"></i>
+                <div className="top-nav__icons-chart" onClick={() =>{if(usingTool===Tools.CHART){setUsingTool(null); document.getElementById("chart-arrow").style.transform = "rotateZ(0deg)";} else{
+                  setUsingTool(Tools.CHART); document.getElementById("chart-arrow").style.transform = "rotateZ(180deg)";}}}>
+                  <i className="bi bi-bar-chart-line top-nav__icon-chart"></i>
+                  <div className="container-arrow">
+                    <i className="bi bi-caret-down top-nav__icon-chart-arrow" id="chart-arrow"></i>
+                  </div>
+                </div>
               </div>
               <div className="top-nav__drawing">
                 <i className="bi bi-pencil top-nav__icon-drawing"></i>
               </div>
-              <div className="top-nav__indicator"  onClick={() =>{if(usingTool===Tools.INDICATOR){setUsingTool(null); document.getElementById("indicator-arrow").style.transform = "rotateZ(0deg)";} else{
+              <div className="top-nav__indicator">
+                <div className="top-nav__icons-indicator" onClick={() =>{if(usingTool===Tools.INDICATOR){setUsingTool(null); document.getElementById("indicator-arrow").style.transform = "rotateZ(0deg)";} else{
                 setUsingTool(Tools.INDICATOR); document.getElementById("indicator-arrow").style.transform = "rotateZ(180deg)";}}}>
-                <div className="top-nav__icons-indicator">
                   <i className="bi bi-activity top-nav__icon-indicator"></i>
                   <div className="container-arrow">
                     <i className="bi bi-caret-down top-nav__icon-indicator-arrow" id="indicator-arrow"></i>
@@ -70,9 +84,18 @@ function Navbar(props){
                       <input type="text"></input>
                     </div>
                     <ul className="indicator__dropdown-list">
-                      <li className="indicator__dropdown-favourite">
+                      <li className="indicator__dropdown-favourite"  onMouseEnter={()=>{setIndicatorDropDown(IndicatorDropDown.FAVOURITE)}} onMouseLeave={()=>{setIndicatorDropDown(null)}} >
                         <div className="num_of_indicators">{num_of_favourite_indicator}</div>
                         <div>Favourite</div>
+                        {indicatorDropDown===IndicatorDropDown.FAVOURITE && 
+                          <div className="indicator-dropdown-favourite-hover">
+                            <ul className="indicator__dropdown-favourite-list"> 
+                              {favouriteIndicators.map((indicator,key) => {
+                                return <li key={key}>{indicator}</li>;
+                              })}
+                            </ul>
+                          </div>
+                        }
                       </li>
                       <li className="indicator__dropdown-patterns">
                         <div className="num_of_indicators">{num_of_patterns_indicator}</div>
@@ -99,7 +122,7 @@ function Navbar(props){
                 }
               </div>
               <div className="top-nav__sharing">
-                <i className="bi bi-instagram"></i>
+                <i className="bi bi-instagram top-nav__icon-sharing"></i>
               </div>
               <div className="top-nav__magnet">
                 <i className="bi bi-magnet top-nav__icon-magnet"></i>

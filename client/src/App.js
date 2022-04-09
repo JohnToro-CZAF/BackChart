@@ -16,29 +16,30 @@ import Navbar from './components/Navbar/Navbar.js'
 function AppTest (){
     const [stockData, setStockData] = useState({options : null});
     const [company, setCompany] = useState("MSFT");
-    const [searchCompany, setSearchComapny] = useState("MSFT");
+    const [renderingCompany, setRenderingComapny] = useState("MSFT");
     const [indicator, setIndicator] = useState([{sma_period : 30}]);
     const windowSize = useWindowSize();    
-
     useEffect(() => {
+        
         const fetchData = async () => {
-            const option = await getStockData(searchCompany, windowSize);
+            const option = await getStockData(renderingCompany, windowSize);
             setStockData({options : option});
         }
         fetchData()
             .catch(console.log("error"));
-    }, [searchCompany, windowSize]);
+    }, [renderingCompany, windowSize]);
 
     // Handle change in children components
-    const handleChange = (e) => {setCompany(e.target.value)};
-    const handleSearch = (e) => {
-        if(e.key === 'Enter'){
-            setSearchComapny(company);
-        }
-    }
+    function handleChangeNameCompany(e){
+        setCompany(e.target.value);
+    } 
+    function updateRenderingComapny(){
+        setRenderingComapny(company);
+    };
     return (
     <div className="App">
-        <Navbar company={company} handleChange={handleChange} handleSearch={handleSearch}/>
+        
+        <Navbar company={company} handleChangeNameCompany={handleChangeNameCompany} setRenderingCompany={updateRenderingComapny}/>
         <HighchartsReact 
             highcharts={Highcharts} 
             options={stockData.options} 
