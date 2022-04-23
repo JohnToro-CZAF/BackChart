@@ -12,7 +12,7 @@ import useWindowSize from './js/windowSize';
 
 // Import components
 import Navbar from './components/Navbar/Navbar.js'
-
+import LoginModal from './components/Login/LoginModal.js';
 function AppTest (){
     const [stockData, setStockData] = useState({options : null});
     const [company, setCompany] = useState("MSFT");
@@ -20,7 +20,6 @@ function AppTest (){
     const [indicator, setIndicator] = useState([{sma_period : 30}]);
     const windowSize = useWindowSize();    
     useEffect(() => {
-        
         const fetchData = async () => {
             const option = await getStockData(renderingCompany, windowSize);
             setStockData({options : option});
@@ -38,7 +37,7 @@ function AppTest (){
     };
     return (
     <div className="App">
-        
+        {/* <LoginModal/> */}
         <Navbar company={company} handleChangeNameCompany={handleChangeNameCompany} setRenderingCompany={updateRenderingComapny}/>
         <HighchartsReact 
             highcharts={Highcharts} 

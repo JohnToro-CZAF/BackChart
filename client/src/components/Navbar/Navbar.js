@@ -52,29 +52,80 @@ function Navbar(props){
                 value={props.company}
                 onChange={props.handleChangeNameCompany}
                 onKeyDown={(e) => {if(e.key==="Enter"){ props.setRenderingCompany(); }}}
-            />
+                />
               </div>
               {/* <div className="top-nav__chart">
                 <h1>1D</h1>
               </div> */}
               <div className="top-nav__chart">
-                <div className="top-nav__icons-chart" onClick={() =>{if(usingTool===Tools.CHART){setUsingTool(null); document.getElementById("chart-arrow").style.transform = "rotateZ(0deg)";} else{
-                  setUsingTool(Tools.CHART); document.getElementById("chart-arrow").style.transform = "rotateZ(180deg)";}}}>
+                <div className="top-nav__icons-chart" onClick={() => {
+                  if(usingTool===Tools.CHART){
+                    setUsingTool(null); 
+                    document.getElementById("chart-arrow").style.transform = "rotateZ(0deg)";
+                  } 
+                  else{
+                    for(var tool in Tools){
+                      if(document.getElementById(tool.toLowerCase() + "-arrow") != null)
+                        document.getElementById(tool.toLowerCase() + "-arrow").style.transform = "rotateZ(0deg)";
+                    }
+                    setUsingTool(Tools.CHART); 
+                    document.getElementById("chart-arrow").style.transform = "rotateZ(180deg)"; 
+                  }
+                }}>
                   <i className="bi bi-bar-chart-line top-nav__icon-chart"></i>
                   <div className="container-arrow">
                     <i className="bi bi-caret-down top-nav__icon-chart-arrow" id="chart-arrow"></i>
                   </div>
+                  <div className="top-nav__chart--hover">
+                    <p>Chart Type</p>
+                  </div>
                 </div>
               </div>
               <div className="top-nav__drawing">
-                <i className="bi bi-pencil top-nav__icon-drawing"></i>
+                <div className="top-nav__icons-drawing" onClick={() => {
+                  if(usingTool===Tools.DRAWING){
+                    setUsingTool(null); 
+                    document.getElementById("drawing-arrow").style.transform = "rotateZ(0deg)";
+                  } 
+                  else{
+                    for(var tool in Tools){
+                      if(document.getElementById(tool.toLowerCase() + "-arrow") != null)
+                        document.getElementById(tool.toLowerCase() + "-arrow").style.transform = "rotateZ(0deg)";
+                    }
+                    setUsingTool(Tools.DRAWING); 
+                    document.getElementById("drawing-arrow").style.transform = "rotateZ(180deg)"; 
+                  }
+                }}>
+                  <i className="bi bi-pencil top-nav__icon-drawing"></i>
+                  <div className="container-arrow">
+                    <i className="bi bi-caret-down top-nav__icon-drawing-arrow" id="drawing-arrow"></i>
+                  </div>
+                  <div className="top-nav__drawing--hover">
+                    <p>Drawing</p>
+                  </div>
+                </div>
               </div>
               <div className="top-nav__indicator">
-                <div className="top-nav__icons-indicator" onClick={() =>{if(usingTool===Tools.INDICATOR){setUsingTool(null); document.getElementById("indicator-arrow").style.transform = "rotateZ(0deg)";} else{
-                setUsingTool(Tools.INDICATOR); document.getElementById("indicator-arrow").style.transform = "rotateZ(180deg)";}}}>
+                <div className="top-nav__icons-indicator" onClick={() => {
+                  if(usingTool===Tools.INDICATOR){
+                    setUsingTool(null); 
+                    document.getElementById("indicator-arrow").style.transform = "rotateZ(0deg)";
+                  } 
+                  else{
+                    for(var tool in Tools){
+                      if(document.getElementById(tool.toLowerCase() + "-arrow") != null)
+                        document.getElementById(tool.toLowerCase() + "-arrow").style.transform = "rotateZ(0deg)";
+                    }
+                    setUsingTool(Tools.INDICATOR); 
+                    document.getElementById("indicator-arrow").style.transform = "rotateZ(180deg)"; 
+                  }
+                }}>
                   <i className="bi bi-activity top-nav__icon-indicator"></i>
                   <div className="container-arrow">
                     <i className="bi bi-caret-down top-nav__icon-indicator-arrow" id="indicator-arrow"></i>
+                  </div>
+                  <div className="top-nav__indicator--hover">
+                    <p>Indicator</p>
                   </div>
                 </div>
                 {usingTool===Tools.INDICATOR &&
@@ -140,7 +191,7 @@ function Navbar(props){
                 <i className="bi bi-gear top-nav__icon-settings"></i>
               </div>
               <div className="top-nav__layers">
-                <i className="bi bi-stack top-nav__icon-user-layers"></i>
+                <i className="bi bi-stack top-nav__icon-layers"></i>
               </div>
               <div className="top-nav__widgets">
                 <i className="bi bi-three-dots-vertical top-nav__icon-widgets"></i>
