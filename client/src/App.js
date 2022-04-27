@@ -27,7 +27,9 @@ function AppTest (){
         fetchData()
             .catch(console.log("error"));
     }, [renderingCompany, windowSize]);
-
+    function cac(e){
+        console.log(e);
+    }
     // Handle change in children components
     function handleChangeNameCompany(e){
         setCompany(e.target.value);
