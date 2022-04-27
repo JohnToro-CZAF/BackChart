@@ -1,5 +1,5 @@
 // Import important packages
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -8,25 +8,37 @@ import './css/App.css';
 
 // Utilities function importing
 import {getStockData} from './js/stockService'
-import useWindowSize from './js/windowSize';
+import {useWindowSize} from './js/componentUti';
+import { defaultSettingIndicator } from './js/defaultOption';
 
 // Import components
 import Navbar from './components/Navbar/Navbar.js'
 import LoginModal from './components/Login/LoginModal.js';
+import { initChart } from './js/chartOptions';
+
 function AppTest (){
-    const [stockData, setStockData] = useState({options : null});
+    const [dataStock, setDataStock] = useState();
+    const [chartOption, setChartOption] = useState({});
     const [company, setCompany] = useState("MSFT");
     const [renderingCompany, setRenderingComapny] = useState("MSFT");
-    const [indicator, setIndicator] = useState([{sma_period : 30}]);
+    const [indicator, setIndicator] = useState({"SMA": {smaPeriod : 30}});
     const windowSize = useWindowSize();    
+
     useEffect(() => {
         const fetchData = async () => {
-            const option = await getStockData(renderingCompany, windowSize);
-            setStockData({options : option});
+            const dataFrame = await getStockData(renderingCompany);
+            setDataStock(dataFrame);
         }
         fetchData()
-            .catch(console.log("error"));
-    }, [renderingCompany, windowSize]);
+    }, [renderingCompany]);
+
+    useEffect(() => {
+        const reStruct = async () => {
+            const option = initChart(dataStock, windowSize, indicator);
+            setChartOption({...option}); 
+        }
+        reStruct()
+    }, [dataStock, indicator, windowSize])
 
     // Handle change in children components
     function handleChangeNameCompany(e){
@@ -35,13 +47,22 @@ function AppTest (){
     function updateRenderingComapny(){
         setRenderingComapny(company);
     };
+    function handleChangeIndicator(id){
+        indicator[id] = defaultSettingIndicator[id];
+        setIndicator({...indicator});
+    }
+
     return (
     <div className="App">
         {/* <LoginModal/> */}
-        <Navbar company={company} handleChangeNameCompany={handleChangeNameCompany} setRenderingCompany={updateRenderingComapny}/>
+        <Navbar company={company} 
+            handleChangeNameCompany={handleChangeNameCompany} 
+            setRenderingCompany={updateRenderingComapny}
+            handleChangeIndicator={handleChangeIndicator}
+        />
         <HighchartsReact 
             highcharts={Highcharts} 
-            options={stockData.options} 
+            options={chartOption} 
             constructorType={'stockChart'} 
             oneToOne={true}
         />

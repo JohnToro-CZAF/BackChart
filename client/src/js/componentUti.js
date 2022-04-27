@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect,useRef } from "react";
 
-export default function useWindowSize() {
+export function useWindowSize() {
     const [windowSize, setWindowSize] = useState({
       width: undefined,
       height: undefined,
