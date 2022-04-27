@@ -1,5 +1,7 @@
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect} from "react";
 import './Navbar.css';
+
+import {useComponentVisible} from "../../js/componentUti.js";
 
 //ENUM FOR TOOLS
 const Tools = {
@@ -32,10 +34,25 @@ const num_of_momemtum_indicator = 21;
 const num_of_orderflow_indicator = 11;
 const num_of_oscillators_indicator = 12;
 const num_of_overlay_indicator = 1;
-const favouriteIndicators = ["SMA","EMA","BollingerBand","SUPERTREND"]
+const favouriteIndicators = ["SMA","EMA","BollingerBand","SUPERTREND"];
+
 function Navbar(props){
     const [usingTool,setUsingTool] = useState(null);
     const [indicatorDropDown,setIndicatorDropDown] = useState(null);
+    const ref = useRef(null);
+    const handleClickOutside = (event) => {
+      if(ref.current && !ref.current.contains(event.target)) {
+          setUsingTool(null);
+          document.getElementById("indicator-arrow").style.transform = "rotateZ(0deg)";
+      }
+    };
+    useEffect(() => {
+      document.addEventListener('click', handleClickOutside, true);
+      return () => {
+          document.removeEventListener('click', handleClickOutside, true);
+      };
+    }, []);
+
     return(
         <div className="top-nav">
             <div className="top-nav__chart-tools">
@@ -105,7 +122,7 @@ function Navbar(props){
                   </div>
                 </div>
               </div>
-              <div className="top-nav__indicator">
+              <div className="top-nav__indicator" ref={ref}>
                 <div className="top-nav__icons-indicator" onClick={() => {
                   if(usingTool===Tools.INDICATOR){
                     setUsingTool(null); 
@@ -142,7 +159,7 @@ function Navbar(props){
                           <div className="indicator-dropdown-favourite-hover">
                             <ul className="indicator__dropdown-favourite-list"> 
                               {favouriteIndicators.map((indicator,key) => {
-                                return <li key={key}>{indicator}</li>;
+                                return <li key={key} onClick={(e) => {props.handleChangeIndicator(indicator)}}>{indicator}</li>;
                               })}
                             </ul>
                           </div>
@@ -170,7 +187,7 @@ function Navbar(props){
                       </li>
                     </ul>
                   </div>
-                }
+                } 
               </div>
               <div className="top-nav__sharing">
                 <i className="bi bi-instagram top-nav__icon-sharing"></i>

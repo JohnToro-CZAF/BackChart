@@ -1,5 +1,5 @@
 // Import important packages
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -8,7 +8,8 @@ import './css/App.css';
 
 // Utilities function importing
 import {getStockData} from './js/stockService'
-import useWindowSize from './js/windowSize';
+import {useWindowSize} from './js/componentUti';
+import { defaultSettingIndicator } from './js/defaultOption';
 
 // Import components
 import Navbar from './components/Navbar/Navbar.js'
@@ -20,7 +21,7 @@ function AppTest (){
     const [chartOption, setChartOption] = useState({});
     const [company, setCompany] = useState("MSFT");
     const [renderingCompany, setRenderingComapny] = useState("MSFT");
-    const [indicator, setIndicator] = useState({sma: {smaPeriod : 30, name: "SMA"}});
+    const [indicator, setIndicator] = useState({"SMA": {smaPeriod : 30}});
     const windowSize = useWindowSize();    
 
     useEffect(() => {
@@ -29,7 +30,6 @@ function AppTest (){
             setDataStock(dataFrame);
         }
         fetchData()
-            // .catch(console.log("error at loading data"));
     }, [renderingCompany]);
 
     useEffect(() => {
@@ -38,7 +38,6 @@ function AppTest (){
             setChartOption({...option}); 
         }
         reStruct()
-            // .catch(console.log("error at useEffect"));
     }, [dataStock, indicator, windowSize])
 
     // Handle change in children components
@@ -48,10 +47,19 @@ function AppTest (){
     function updateRenderingComapny(){
         setRenderingComapny(company);
     };
+    function handleChangeIndicator(id){
+        indicator[id] = defaultSettingIndicator[id];
+        setIndicator({...indicator});
+    }
+
     return (
     <div className="App">
         {/* <LoginModal/> */}
-        <Navbar company={company} handleChangeNameCompany={handleChangeNameCompany} setRenderingCompany={updateRenderingComapny}/>
+        <Navbar company={company} 
+            handleChangeNameCompany={handleChangeNameCompany} 
+            setRenderingCompany={updateRenderingComapny}
+            handleChangeIndicator={handleChangeIndicator}
+        />
         <HighchartsReact 
             highcharts={Highcharts} 
             options={chartOption} 

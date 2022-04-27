@@ -37,7 +37,18 @@ export var defaultOption = {
             lineWidth: 2
         }
     ],
-    // series : []
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 800
+            },
+            chartOptions: {
+                rangeSelector: {
+                    inputEnabled: false
+                }
+            }
+        }]
+    }
 };
 
 export const priceOption = {
@@ -57,5 +68,23 @@ export const smaOption = {
     color: 'red',
     tooltip: {
         valueDecimals: 2
+    }
+}
+
+export const emaOption = {
+    type : 'line',
+    name: 'EMA',
+    color: 'blue',
+    tooltip: {
+        valueDecimals: 2
+    }    
+}
+
+export const defaultSettingIndicator = {
+    "SMA" : {
+        smaPeriod : 30,
+    },
+    "EMA" : {
+        emaPeriod : 30,
     }
 }

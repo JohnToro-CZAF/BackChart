@@ -19,11 +19,9 @@ function requestData(code){
     return response;
 }
 export function getStockData(company){
-    console.log('Loading ' + company);
     const dataFrame = requestData(company)
     .catch(function (err) {
         console.error(err.stack || err);  
     });
-    console.log("options", dataFrame);
     return dataFrame;
 }

@@ -1,5 +1,5 @@
-import {computeSmaSeries, dataFrameToHighstockOHLC, seriesToHighstock} from './utilities.js'
-import { defaultOption, smaOption, volumeOption, priceOption} from './defaultOption.js';
+import {computeSmaSeries, dataFrameToHighstockOHLC, seriesToHighstock, computeEmaSeries} from './utilities.js'
+import { defaultOption, smaOption, volumeOption, priceOption, emaOption} from './defaultOption.js';
 
 export function initChart (dataFrame, window, indicator) {
     var price = dataFrameToHighstockOHLC(dataFrame);
@@ -16,11 +16,14 @@ export function initChart (dataFrame, window, indicator) {
         return;
     }
     Object.entries(indicator).forEach(([k,v]) => {
-        // console.log("These are", k, v);
-        switch(v.name){
+        switch(k){
             case "SMA":
                 var sma = computeSmaSeries(dataFrame.getSeries("close"), v.smaPeriod);
                 chartOptions.series.push({...smaOption, data:sma});
+                break;
+            case "EMA":
+                var ema = computeEmaSeries(dataFrame.getSeries("close"), v.emaPeriod);
+                chartOptions.series.push({...emaOption, data:ema});
                 break;
             default:
         }
