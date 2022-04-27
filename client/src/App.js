@@ -13,23 +13,34 @@ import useWindowSize from './js/windowSize';
 // Import components
 import Navbar from './components/Navbar/Navbar.js'
 import LoginModal from './components/Login/LoginModal.js';
+import { initChart } from './js/chartOptions';
+
 function AppTest (){
-    const [stockData, setStockData] = useState({options : null});
+    const [dataStock, setDataStock] = useState();
+    const [chartOption, setChartOption] = useState({});
     const [company, setCompany] = useState("MSFT");
     const [renderingCompany, setRenderingComapny] = useState("MSFT");
-    const [indicator, setIndicator] = useState([{sma_period : 30}]);
+    const [indicator, setIndicator] = useState({sma: {smaPeriod : 30, name: "SMA"}});
     const windowSize = useWindowSize();    
+
     useEffect(() => {
         const fetchData = async () => {
-            const option = await getStockData(renderingCompany, windowSize);
-            setStockData({options : option});
+            const dataFrame = await getStockData(renderingCompany);
+            setDataStock(dataFrame);
         }
         fetchData()
-            .catch(console.log("error"));
-    }, [renderingCompany, windowSize]);
-    function cac(e){
-        console.log(e);
-    }
+            // .catch(console.log("error at loading data"));
+    }, [renderingCompany]);
+
+    useEffect(() => {
+        const reStruct = async () => {
+            const option = initChart(dataStock, windowSize, indicator);
+            setChartOption({...option}); 
+        }
+        reStruct()
+            // .catch(console.log("error at useEffect"));
+    }, [dataStock, indicator, windowSize])
+
     // Handle change in children components
     function handleChangeNameCompany(e){
         setCompany(e.target.value);
@@ -43,7 +54,7 @@ function AppTest (){
         <Navbar company={company} handleChangeNameCompany={handleChangeNameCompany} setRenderingCompany={updateRenderingComapny}/>
         <HighchartsReact 
             highcharts={Highcharts} 
-            options={stockData.options} 
+            options={chartOption} 
             constructorType={'stockChart'} 
             oneToOne={true}
         />

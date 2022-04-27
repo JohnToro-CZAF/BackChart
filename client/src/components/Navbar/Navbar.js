@@ -32,7 +32,7 @@ const num_of_momemtum_indicator = 21;
 const num_of_orderflow_indicator = 11;
 const num_of_oscillators_indicator = 12;
 const num_of_overlay_indicator = 1;
-const favouriteIndicators = ["TBC","HDF","AGH","ODG"]
+const favouriteIndicators = ["SMA","EMA","BollingerBand","SUPERTREND"]
 function Navbar(props){
     const [usingTool,setUsingTool] = useState(null);
     const [indicatorDropDown,setIndicatorDropDown] = useState(null);
