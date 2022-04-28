@@ -4,43 +4,33 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var request = require('request-promise');
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var route = require('./src/routes');
+
+
+//MongoDB Atlats Connect
+
 
 var alphaVantageApiKey = "FXWNNVR4DDETBMUNFXWNNVR4DDETBMUN"; //fio:
 var app = express();
 
+
+//Route Setup
+route(app);
+
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src', 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'src', 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
-app.get('/stock-history', function (req, res) {
-  console.log("took")
-  var symbol = req.query.symbol;
-  if (!symbol) {
-      throw new Error("Symbol not specified.");
-  }
 
-  var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + symbol + '&apikey=' + alphaVantageApiKey + '&datatype=csv';
-  request(url)
-      .then(function (result) {
-          res.type('text/csv');
-          console.log(url);
-          res.send(result).end();
-      })
-      .catch(function (e) {
-          console.error(e)
-      }); 
-});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
