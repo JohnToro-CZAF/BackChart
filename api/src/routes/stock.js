@@ -1,8 +1,9 @@
 var express = require('express');
+const request = require('request-promise');
 var router = express.Router();
-
+var alphaVantageApiKey = "FXWNNVR4DDETBMUNFXWNNVR4DDETBMUN"; //fio:
 /* GET [/stock-history] page. */
-router.get('/', function (req, res) {
+router.get('/', function (req, res, next) {
     console.log("took")
     var symbol = req.query.symbol;
     if (!symbol) {
@@ -13,7 +14,7 @@ router.get('/', function (req, res) {
     request(url)
         .then(function (result) {
             res.type('text/csv');
-            console.log(url);
+            //console.log(url);
             res.send(result).end();
         })
         .catch(function (e) {
