@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set PORT=8080 && node ./bin/www"
+    "start": "set PORT=8080 && nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -11,8 +11,13 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
+    "mongodb": "^4.5.0",
+    "mongoose": "^6.3.1",
     "morgan": "~1.9.1",
     "request": "^2.88.2",
     "request-promise": "^4.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
