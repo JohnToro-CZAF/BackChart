@@ -4,13 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var route = require('./src/routes');
-
+const db = require('./src/config/db')
 
 //MongoDB Atlats Connect
+db.connect();
 
 
 var app = express();
 
+
+//Body Parser
+app.use(
+  express.urlencoded({
+      extended: true,
+  }),
+);
+app.use(express.json());
 
 
 // view engine setup
