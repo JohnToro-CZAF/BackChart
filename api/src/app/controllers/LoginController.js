@@ -1,7 +1,7 @@
-const Authentication = require('../models/Authentication');
+const Account = require('../models/Account');
 class LoginController{
-    // [POST] /login/authenticate
-    authenticate(req, res, next) {
+    // [POST] /login
+    index(req, res, next) {
         var username = req.body.username;
         var password = req.body.password;
         Authentication.findOne({ username: username})
@@ -13,7 +13,7 @@ class LoginController{
                     }
                     else{
                         res.send(false);
-                        console.log('Wrong Password')
+                        console.log('Wrong Password');
                     }
                 }
             )
