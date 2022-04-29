@@ -6,11 +6,10 @@ export function initChart (dataFrame, window, indicator) {
     var volume = seriesToHighstock(dataFrame.getSeries("volume"));
     var chartOptions = Object.assign({}, defaultOption);
 
-    chartOptions.chart = window;
+    // chartOptions.chart = {...chartOptions.chart, height: window.height-100, width : window.width-100};
     chartOptions.series = [];
     chartOptions.series.push({...priceOption, data:price});
     chartOptions.series.push({...volumeOption, data:volume});
-
     if(indicator.length >= 7){
         console.log("You are not allowed to have more than 7 indicators on the same chart");
         return;
@@ -29,4 +28,5 @@ export function initChart (dataFrame, window, indicator) {
         }
     })
     return chartOptions;
+
 }

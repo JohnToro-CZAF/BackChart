@@ -30,7 +30,7 @@ app.get('/stock-history', function (req, res) {
       throw new Error("Symbol not specified.");
   }
 
-  var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + symbol + '&apikey=' + alphaVantageApiKey + '&datatype=csv';
+  var url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=' + symbol + '&apikey=' + alphaVantageApiKey + '&datatype=csv'+'&outputsize=full';
   request(url)
       .then(function (result) {
           res.type('text/csv');

@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import Highcharts from 'highcharts/highstock';
 import HighchartsReact from 'highcharts-react-official';
-
+import dragPanes from "highcharts/modules/drag-panes";
 // Import resources
 import './css/App.css';
 
@@ -16,9 +16,11 @@ import Navbar from './components/Navbar/Navbar.js'
 import LoginModal from './components/Login/LoginModal.js';
 import { initChart } from './js/chartOptions';
 
+dragPanes(Highcharts);
+
 function AppTest (){
     const [dataStock, setDataStock] = useState();
-    const [chartOption, setChartOption] = useState({});
+    const [chartOption, setChartOption] = useState(null);
     const [company, setCompany] = useState("MSFT");
     const [renderingCompany, setRenderingComapny] = useState("MSFT");
     const [indicator, setIndicator] = useState({"SMA": {smaPeriod : 30}});
@@ -35,7 +37,7 @@ function AppTest (){
     useEffect(() => {
         const reStruct = async () => {
             const option = initChart(dataStock, windowSize, indicator);
-            setChartOption({...option}); 
+            setChartOption(option); 
         }
         reStruct()
     }, [dataStock, indicator, windowSize])

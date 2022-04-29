@@ -1,18 +1,32 @@
 export var defaultOption = {
+    // spacing: null,
     chart: {
-        width : 320,
-        height : 480
+        borderWidth: 1,
+        height: 800
     },
     title: {
+        style: {
+          color: "#A2A39C"
+        },
+        align: "center",
         text: ' Stock price history',
     },
     subtitle: {
+        style: {
+          color: "#A2A39C"
+        },
+        align: "center",
         text: 'A demo of Highstock using Data-Forge with data loaded from Alpha Vantage.',
     },
-    xAxis: {
+    legend: {
+        align: "right",
+        verticalAlign: "bottom",
+        itemStyle: {
+          fontWeight: "normal",
+          color: "#A2A39C"
+        }
     },
-    yAxis: [
-        {
+    yAxis: [{
             labels: {
                 align: 'right',
                 x: -3
@@ -20,10 +34,14 @@ export var defaultOption = {
             title: {
                 text: 'Price'
             },
-            height: '60%',
-            lineWidth: 2
-        }, 
-        {
+            height: '80%',
+            resize: {
+                lineWidth: 5,
+                enabled : true
+            },
+        },{
+            top: '80%',
+            height: '20%',
             labels: {
                 align: 'right',
                 x: -3
@@ -31,35 +49,43 @@ export var defaultOption = {
             title: {
                 text: 'Volume'
             },
-            top: '65%',
-            height: '35%',
-            offset: 0,
-            lineWidth: 2
-        }
-    ],
+    }],
     responsive: {
         rules: [{
-            condition: {
-                maxWidth: 800
-            },
-            chartOptions: {
-                rangeSelector: {
-                    inputEnabled: false
-                }
+          condition: {
+            maxWidth: 800
+          },
+          chartOptions: {
+            rangeSelector: {
+              inputEnabled: false
             }
+          }
         }]
-    }
+    },
+    pointPadding : 0.025
 };
-
+var groupingUnits = [[
+    'week',
+    [1]
+], [
+    'month',
+    [1, 2, 3, 4, 6]
+]]
 export const priceOption = {
     type: 'candlestick',
     name: 'Price',
+    // dataGrouping: {
+    //     units: groupingUnits
+    // }
 }
 
 export const volumeOption = {
     type: 'column',
     name: 'Volume',
     yAxis: 1,
+    // dataGrouping: {
+    //     units: groupingUnits
+    // }
 }
 
 export const smaOption = {
