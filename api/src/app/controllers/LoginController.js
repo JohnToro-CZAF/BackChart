@@ -1,23 +1,31 @@
 const Account = require('../models/Account');
 class LoginController{
-    // [POST] /login
+    // [GET] /login
     index(req, res, next) {
         var username = req.body.username;
         var password = req.body.password;
-        Authentication.findOne({ username: username})
+        Account.findOne({ username: username})
             .then(
                 account => {
-                    if(account.password === password){
-                        res.send(true);
-                        console.log('Login complete');
+                    if(account === null){
+                        res.send({account: false, password: false});
                     }
-                    else{
-                        res.send(false);
-                        console.log('Wrong Password');
+                    else if(account !== null){
+                        if(account.password === password){
+                            res.send({account: true, password: true});
+                            console.log('Login complete');
+                        }
+                        else{
+                            res.send({account: true, password: false});
+                            console.log('Wrong Password');
+                        }
                     }
                 }
             )
-            .catch(next)
+            .catch(err => {
+                    console.log(err);
+                }
+            )
     }
 }
 

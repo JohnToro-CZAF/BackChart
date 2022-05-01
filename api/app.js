@@ -23,7 +23,7 @@ app.use(express.json());
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'src', 'views'));
+app.set('views', path.join(__dirname, 'src','resources', 'views'));
 app.set('view engine', 'jade');
 
 app.use(logger('dev'));

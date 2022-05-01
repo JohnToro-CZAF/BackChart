@@ -4,7 +4,7 @@ class StockController{
     // [GET] stock-history/:symbol
     get_data (req, res, next) {
         var alphaVantageApiKey = "FXWNNVR4DDETBMUNFXWNNVR4DDETBMUN"; //fio:
-        console.log("took")
+        //console.log("took")
         var symbol = req.query.symbol;
         if (!symbol) {
             throw new Error("Symbol not specified.");
